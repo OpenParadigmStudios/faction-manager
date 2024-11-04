@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Faction{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Delete Faction</h1>
+    <p>Are you sure you want to delete the faction "<strong>{{ faction.name }}</strong>"? This action cannot be undone.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'faction_detail' timeline_id=timeline.id pk=faction.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Factions{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Factions in {{ timeline.name }}</h1>
+    <a href="{% url 'faction_create' timeline_id=timeline.id %}" class="btn btn-primary mb-4">Create New Faction</a>
+    <div class="list-group">
+        {% for faction in factions %}
+            <a href="{% url 'faction_detail' timeline_id=timeline.id pk=faction.id %}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ faction.name }}</h5>
+                <p class="mb-1">{{ faction.description|truncatewords:20 }}</p>
+                <small>Last modified: {{ faction.last_modified|date:"Y-m-d H:i" }}</small>
+            </a>
+        {% empty %}
+            <p class="text-muted">No factions available. Click "Create New Faction" to add one.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
