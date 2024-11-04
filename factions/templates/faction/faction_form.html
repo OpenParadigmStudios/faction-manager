@@ -15,7 +15,26 @@
             <label for="id_description">Description</label>
             <textarea name="description" id="id_description" class="form-control" rows="5" placeholder="Enter a detailed description" required></textarea>
         </div>
-        <!-- Add fields for tier, goals, leadership, values, history here -->
+        <div class="form-group mb-3">
+            <label for="id_tier">Tier</label>
+            <input type="number" name="tier" id="id_tier" class="form-control" placeholder="Enter Faction Tier" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_goals">Goals</label>
+            <textarea name="goals" id="id_goals" class="form-control" rows="3" placeholder="Enter Faction Goals"></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_leadership">Leadership</label>
+            <textarea name="leadership" id="id_leadership" class="form-control" rows="3" placeholder="Enter Leadership Info"></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_values">Values</label>
+            <textarea name="values" id="id_values" class="form-control" rows="3" placeholder="Enter Faction Values"></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_history">History</label>
+            <textarea name="history" id="id_history" class="form-control" rows="3" placeholder="Enter Faction History"></textarea>
+        </div>
         <button type="submit" class="btn btn-success">Save</button>
         <a href="{% url 'faction_list' timeline_id=timeline.id %}" class="btn btn-secondary">Cancel</a>
     </form>

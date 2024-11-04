@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Timeline, Faction
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 # Timelines
 class TimelineListView(ListView):
@@ -49,7 +49,29 @@ class FactionDetailView(DetailView):
     template_name = 'faction/faction_detail.html'
     context_object_name = 'faction'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        return context
+
 class FactionCreateView(CreateView):
+    model = Faction
+    fields = ['name', 'description', 'tier', 'goals', 'leadership', 'values', 'history']
+    template_name = 'faction/faction_form.html'
+
+    def get_success_url(self):
+        return reverse('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        return context
+
+    def form_valid(self, form):
+        form.instance.timeline_id = self.kwargs['timeline_id']
+        return super().form_valid(form)
+
+class FactionUpdateView(UpdateView):
     model = Faction
     fields = ['name', 'description', 'tier', 'goals', 'leadership', 'values', 'history']
     template_name = 'faction/faction_form.html'
@@ -64,20 +86,9 @@ class FactionCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
-
-class FactionUpdateView(UpdateView):
-    model = Faction
-    fields = ['name', 'description', 'tier', 'goals', 'leadership', 'values', 'history']
-    template_name = 'faction/faction_form.html'
-
-    def get_success_url(self):
-        return reverse_lazy('faction_list', kwargs={'timeline_id': self.object.timeline.id})
+        return reverse('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
 
 class FactionDeleteView(DeleteView):
     model = Faction
     template_name = 'faction/faction_confirm_delete.html'
-
-    def get_success_url(self):
-        return reverse_lazy('faction_list', kwargs={'timeline_id': self.object.timeline.id})
-
+    success_url = reverse_lazy('faction_list')
