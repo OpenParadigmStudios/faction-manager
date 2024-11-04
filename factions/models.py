@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
 from django.db.models import Max
 
 class Timeline(models.Model):
@@ -100,7 +99,7 @@ class Event(models.Model):
     when = models.IntegerField()
     timeline = models.ForeignKey(Timeline, related_name='events', on_delete=models.CASCADE)
     # Changes stored as JSON: {'faction_id': amount, 'project_id': amount, 'clock_id': amount}
-    changes = JSONField()
+    changes = models.JSONField()
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
