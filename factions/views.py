@@ -91,4 +91,11 @@ class FactionUpdateView(UpdateView):
 class FactionDeleteView(DeleteView):
     model = Faction
     template_name = 'faction/faction_confirm_delete.html'
-    success_url = reverse_lazy('faction_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        return context
+
+    def get_success_url(self):
+        return reverse('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
