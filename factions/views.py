@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Timeline, Session, Event, Faction, Project
 from .forms import TimelineForm
@@ -121,3 +121,51 @@ class FactionDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
+
+# Placeholder Session Views
+class SessionListView(ListView):
+    model = Session
+    template_name = 'session/session_list.html'
+    context_object_name = 'sessions'
+
+class SessionCreateView(CreateView):
+    model = Session
+    template_name = 'session/session_form.html'
+    fields = ['name', 'description', 'when']
+
+class SessionDetailView(DetailView):
+    model = Session
+    template_name = 'session/session_detail.html'
+    context_object_name = 'session'
+
+# Placeholder Event Views
+class EventListView(ListView):
+    model = Event
+    template_name = 'event/event_list.html'
+    context_object_name = 'events'
+
+class EventCreateView(CreateView):
+    model = Event
+    template_name = 'event/event_form.html'
+    fields = ['name', 'description', 'when']
+
+class EventDetailView(DetailView):
+    model = Event
+    template_name = 'event/event_detail.html'
+    context_object_name = 'event'
+
+# Placeholder Project Views
+class ProjectListView(ListView):
+    model = Project
+    template_name = 'project/project_list.html'
+    context_object_name = 'projects'
+
+class ProjectCreateView(CreateView):
+    model = Project
+    template_name = 'project/project_form.html'
+    fields = ['name', 'description']
+
+class ProjectDetailView(DetailView):
+    model = Project
+    template_name = 'project/project_detail.html'
+    context_object_name = 'project'

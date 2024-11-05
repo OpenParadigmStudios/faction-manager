@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Session List{% endblock %}
+{% block content %}
+<h1>Sessions</h1>
+<ul>
+    {% for session in sessions %}
+    <li><a href="{% url 'session_detail' session.pk %}">{{ session.name }}</a></li>
+    {% empty %}
+    <li>No sessions available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

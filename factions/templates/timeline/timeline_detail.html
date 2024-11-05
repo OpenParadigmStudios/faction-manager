@@ -7,38 +7,70 @@
   <p><strong>Time Now:</strong> {{ now }}</p>
   <a href="{% url 'timeline_edit' timeline.pk %}" class="btn btn-secondary">Edit Timeline</a>
 
-  <div class="grid">
-    <div>
-      <h2>Session Feed</h2>
-      <ul>
-        {% for session in latest_sessions %}
-          <li><a href="{% url 'session_detail' session.pk %}">{{ session.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div>
-      <h2>Event Feed</h2>
-      <ul>
-        {% for event in latest_events %}
-          <li><a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div>
-      <h2>Faction Feed</h2>
-      <ul>
-        {% for faction in top_factions %}
-          <li><a href="{% url 'faction_detail' faction.pk %}">{{ faction.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div>
-      <h2>Project Feed</h2>
-      <ul>
-        {% for project in top_projects %}
-          <li><a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
+  <table class="feed-table">
+    <tr>
+      <td class="feed-cell">
+        <h2>
+          <a href="{% url 'session_list' timeline.pk %}">Session Feed</a>
+          <a href="{% url 'session_create' timeline.pk %}" class="icon-link">
+            <i class="fas fa-plus-circle"></i>
+          </a>
+        </h2>
+        <ul>
+          {% for session in latest_sessions %}
+            <li><a href="{% url 'session_detail' session.pk timeline.pk %}">{{ session.name }} (When: {{ session.when }})</a></li>
+          {% empty %}
+            <li>No recent sessions available.</li>
+          {% endfor %}
+        </ul>
+      </td>
+      <td class="feed-cell">
+        <h2>
+          <a href="{% url 'event_list' timeline.pk %}">Event Feed</a>
+          <a href="{% url 'event_create' timeline.pk %}" class="icon-link">
+            <i class="fas fa-plus-circle"></i>
+          </a>
+        </h2>
+        <ul>
+          {% for event in latest_events %}
+            <li><a href="{% url 'event_detail' event.pk timeline.pk %}">{{ event.name }} (When: {{ event.when }})</a></li>
+          {% empty %}
+            <li>No recent events available.</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="feed-cell">
+        <h2>
+          <a href="{% url 'faction_list' timeline.pk %}">Faction Feed</a>
+          <a href="{% url 'faction_create' timeline.pk %}" class="icon-link">
+            <i class="fas fa-plus-circle"></i>
+          </a>
+        </h2>
+        <ul>
+          {% for faction in top_factions %}
+            <li><a href="{% url 'faction_detail' faction.pk timeline.pk %}">{{ faction.name }}</a></li>
+          {% empty %}
+            <li>No factions available.</li>
+          {% endfor %}
+        </ul>
+      </td>
+      <td class="feed-cell">
+        <h2>
+          <a href="{% url 'project_list' timeline.pk %}">Project Feed</a>
+          <a href="{% url 'project_create' timeline.pk %}" class="icon-link">
+            <i class="fas fa-plus-circle"></i>
+          </a>
+        </h2>
+        <ul>
+          {% for project in top_projects %}
+            <li><a href="{% url 'project_detail' project.pk timeline.pk %}">{{ project.name }} ({{ project.progress }}%)</a></li>
+          {% empty %}
+            <li>No projects available.</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
 {% endblock %}
