@@ -1,22 +1,14 @@
+<!-- templates/timeline/timeline_form.html -->
+
 {% extends "base.html" %}
-
-{% block title %}{{ view.object.pk|yesno:"Edit Timeline,Create Timeline" }}{% endblock %}
-
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">{{ view.object.pk|yesno:"Edit Timeline,Create New Timeline" }}</h1>
-    <form method="post" novalidate>
-        {% csrf_token %}
-        <div class="form-group mb-3">
-            <label for="id_name">Name</label>
-            <input type="text" name="name" id="id_name" class="form-control" placeholder="Enter Timeline Name" required>
-        </div>
-        <div class="form-group mb-4">
-            <label for="id_description">Description</label>
-            <textarea name="description" id="id_description" class="form-control" rows="5" placeholder="Enter a detailed description" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Save</button>
-        <a href="{% url 'timeline_list' %}" class="btn btn-secondary">Cancel</a>
-    </form>
-</div>
+  <h1>{% if form.instance.pk %}Edit Timeline{% else %}Create Timeline{% endif %}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    {% if form.instance.pk %}
+      <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+    {% endif %}
+  </form>
 {% endblock %}

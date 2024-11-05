@@ -5,10 +5,9 @@ from .views import (TimelineListView, TimelineDetailView, TimelineCreateView, Ti
 urlpatterns = [
     # Timeline URLs
     path('timelines/', TimelineListView.as_view(), name='timeline_list'),
-    path('timelines/<int:pk>/', TimelineDetailView.as_view(), name='timeline_detail'),
-    path('timelines/create/', TimelineCreateView.as_view(), name='timeline_create'),
-    path('timelines/<int:pk>/edit/', TimelineUpdateView.as_view(), name='timeline_update'),
-    path('timelines/<int:pk>/delete/', TimelineDeleteView.as_view(), name='timeline_delete'),
+    path('timeline/<int:pk>/', TimelineDetailView.as_view(), name='timeline_detail'),
+    path('timeline/create/', TimelineCreateView.as_view(), name='timeline_create'),
+    path('timeline/<int:pk>/edit/', TimelineUpdateView.as_view(), name='timeline_edit'),
 
     # Faction URLs
     path('timelines/<int:timeline_id>/factions/', FactionListView.as_view(), name='faction_list'),

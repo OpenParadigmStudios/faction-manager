@@ -1,6 +1,9 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Timeline, Faction
+from .models import Timeline, Session, Event, Faction, Project
+from .forms import TimelineForm
 from django.urls import reverse_lazy, reverse
+from django.db.models import Sum
 
 # Timelines
 class TimelineListView(ListView):
@@ -13,6 +16,18 @@ class TimelineDetailView(DetailView):
     template_name = 'timeline/timeline_detail.html'
     context_object_name = 'timeline'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        timeline = self.object
+
+        # Using model helper methods to get the dynamic data
+        context['latest_sessions'] = timeline.latest_sessions()
+        context['latest_events'] = timeline.latest_events()
+        context['top_factions'] = timeline.top_factions()
+        context['top_projects'] = timeline.top_projects()
+        context['now'] = timeline.now()
+        return context
+
 class TimelineCreateView(CreateView):
     model = Timeline
     fields = ['name', 'description']
@@ -24,6 +39,13 @@ class TimelineUpdateView(UpdateView):
     fields = ['name', 'description']
     template_name = 'timeline/timeline_form.html'
     success_url = reverse_lazy('timeline_list')
+
+    def form_valid(self, form):
+        # Implementing deletion functionality
+        if "delete" in self.request.POST:
+            self.object.delete()
+            return redirect(self.success_url)
+        return super().form_valid(form)
 
 class TimelineDeleteView(DeleteView):
     model = Timeline
