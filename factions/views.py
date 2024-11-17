@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Timeline, Session, Event, Faction, Project
+from .models import Timeline, Session, Event, Faction, Project, Clock, ClockChange
 from .forms import TimelineForm
 from django.urls import reverse_lazy, reverse
 from django.db.models import Sum
@@ -169,3 +169,35 @@ class ProjectDetailView(DetailView):
     model = Project
     template_name = 'project/project_detail.html'
     context_object_name = 'project'
+
+# Placeholder Clock Views
+class ClockListView(ListView):
+    model = Clock
+    template_name = 'clock/clock_list.html'
+    context_object_name = 'clocks'
+
+class ClockCreateView(CreateView):
+    model = Clock
+    template_name = 'clock/clock_form.html'
+    fields = ['title']
+
+class ClockDetailView(DetailView):
+    model = Clock
+    template_name = 'clock/clock_detail.html'
+    context_object_name = 'clock'
+
+# Placeholder ClockChange Views
+class ClockChangeListView(ListView):
+    model = ClockChange
+    template_name = 'clockchange/clockchange_list.html'
+    context_object_name = 'clockchanges'
+
+class ClockChangeCreateView(CreateView):
+    model = ClockChange
+    template_name = 'clockchange/clockchange_form.html'
+    fields = ['name', 'description']
+
+class ClockChangeDetailView(DetailView):
+    model = ClockChange
+    template_name = 'clockchange/clockchange_detail.html'
+    context_object_name = 'clockchange'

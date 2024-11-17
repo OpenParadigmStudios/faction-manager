@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Create Clock{% endblock %}
+{% block content %}
+<h1>Create a New Clock</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endblock %}

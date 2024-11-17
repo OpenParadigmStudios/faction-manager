@@ -25,4 +25,13 @@ urlpatterns = [
     path('projects/<int:timeline_id>', views.ProjectListView.as_view(), name='project_list'),
     path('projects/create/<int:timeline_id>', views.ProjectCreateView.as_view(), name='project_create'),
     path('projects/<int:pk>/<int:timeline_id>', views.ProjectDetailView.as_view(), name='project_detail'),
+
+    path('clocks/<int:timeline_id>', views.ClockListView.as_view(), name='clock_list'),
+    path('clocks/create/<int:timeline_id>', views.ClockCreateView.as_view(), name='clock_create'),
+    path('clocks/<int:pk>/<int:timeline_id>', views.ClockDetailView.as_view(), name='clock_detail'),
+
+    path('clockchanges/<int:timeline_id>', views.ClockChangeListView.as_view(), name='clockchange_list'),
+    path('clockchanges/create/<int:timeline_id>', views.ClockChangeCreateView.as_view(), name='clockchange_create'),
+    path('clockchanges/<int:pk>/<int:timeline_id>', views.ClockChangeDetailView.as_view(), name='clockchange_detail'),
+
 ]

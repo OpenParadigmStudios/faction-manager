@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}ClockChange List{% endblock %}
+{% block content %}
+<h1>ClockChanges</h1>
+<ul>
+    {% for clockchange in clockchanges %}
+    <li><a href="{% url 'clockchange_detail' clockchange.pk %}">{{ clockchange.amount }}</a></li>
+    {% empty %}
+    <li>No clockchanges available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
