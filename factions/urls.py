@@ -33,5 +33,4 @@ urlpatterns = [
     path('clockchanges/<int:timeline_id>', views.ClockChangeListView.as_view(), name='clockchange_list'),
     path('clockchanges/create/<int:timeline_id>', views.ClockChangeCreateView.as_view(), name='clockchange_create'),
     path('clockchanges/<int:pk>/<int:timeline_id>', views.ClockChangeDetailView.as_view(), name='clockchange_detail'),
-
 ]

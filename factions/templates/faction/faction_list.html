@@ -5,17 +5,54 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4">Factions in {{ timeline.name }}</h1>
-    <a href="{% url 'faction_create' timeline_id=timeline.id %}" class="btn btn-primary mb-4">Create New Faction</a>
-    <div class="list-group">
-        {% for faction in factions %}
-            <a href="{% url 'faction_detail' timeline_id=timeline.id pk=faction.id %}" class="list-group-item list-group-item-action">
-                <h5 class="mb-1">{{ faction.name }}</h5>
-                <p class="mb-1">{{ faction.description|truncatewords:20 }}</p>
-                <small>Last modified: {{ faction.last_modified|date:"Y-m-d H:i" }}</small>
+    <a href="{% url 'faction_create' timeline.id %}" class="btn btn-primary mb-4">Add New Faction</a>
+    {% for faction in factions %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <a href="{% url 'faction_detail' faction.id timeline.id %}" style="text-decoration: none; color: inherit;">
+                <div class="row">
+                    <!-- Left Side -->
+                    <div class="col-md-4">
+                        <h3>{{ faction.name }}</h3>
+                        <p class="text-muted" style="font-style: italic;">{{ faction.description|truncatewords:20 }}</p>
+                    </div>
+                    <!-- Middle -->
+                    <div class="col-md-4">
+                        <h4>Active Projects</h4>
+                        {% for project in faction.active_projects %}
+                            <p><strong>{{ project.name }}</strong></p>
+                            <ul>
+                                {% for clock in project.clocks.all %}
+                                    <li>
+                                        {% if clock.title %}
+                                            {{ clock.title }}
+                                        {% else %}
+                                            {{ project.name }}
+                                        {% endif %}
+                                        : {{ clock.calculate_progress }}/{{ clock.length }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% empty %}
+                            <p>No active projects.</p>
+                        {% endfor %}
+                    </div>
+                    <!-- Right -->
+                    <div class="col-md-4">
+                        <h4>Finished Projects</h4>
+                        {% for project in faction.completed_projects %}
+                            <p><strong>{{ project.name }}</strong></p>
+                            {% if project.description %}
+                                <p>{{ project.description|truncatewords:10 }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </a>
-        {% empty %}
-            <p class="text-muted">No factions available. Click "Create New Faction" to add one.</p>
-        {% endfor %}
+        </div>
     </div>
+    {% empty %}
+    <p class="text-muted">No factions available. Click "Add New Faction" to add one.</p>
+    {% endfor %}
 </div>
 {% endblock %}

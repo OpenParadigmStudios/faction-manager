@@ -64,7 +64,10 @@ class FactionListView(ListView):
         return context
 
     def get_queryset(self):
-        return Faction.objects.filter(timeline_id=self.kwargs['timeline_id'])
+        factions = Faction.objects.filter(timeline_id=self.kwargs['timeline_id'])
+        factions = factions.annotate(total_clock_length=Sum('projects__clocks__length'))
+        factions = factions.order_by('-total_clock_length')
+        return factions
 
 class FactionDetailView(DetailView):
     model = Faction
@@ -74,7 +77,16 @@ class FactionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        # Add recent events
+        context['recent_events'] = self.get_recent_events()
         return context
+
+    def get_recent_events(self):
+        faction = self.get_object()
+        recent_events = Event.objects.filter(
+            clock_changes__clock__project__factions=faction
+        ).distinct().order_by('-when')[:5]
+        return recent_events
 
 class FactionCreateView(CreateView):
     model = Faction

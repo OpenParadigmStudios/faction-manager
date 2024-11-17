@@ -67,6 +67,15 @@ class Faction(models.Model):
     def completed_projects(self):
         return self.projects.filter(clocks__finished__isnull=False).distinct()
     
+
+    def total_clock_length(self):
+        return self.projects.aggregate(total_length=Sum('clocks__length'))['total_length'] or 0
+
+    def recent_events(self, limit=5):
+        return Event.objects.filter(
+            clock_changes__clock__project__factions=self
+        ).distinct().order_by('-when')[:limit]
+
     def __str__(self):
         return self.name
 
