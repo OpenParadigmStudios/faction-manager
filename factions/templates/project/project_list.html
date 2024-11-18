@@ -1,12 +1,47 @@
 {% extends "base.html" %}
-{% block title %}Project List{% endblock %}
+
+{% block title %}Projects{% endblock %}
+
 {% block content %}
-<h1>Projects</h1>
-<ul>
+<div class="container mt-5">
+    <h1 class="mb-4">Projects in {{ timeline.name }}</h1>
+    <!-- Filters -->
+    <form method="get" class="form-inline mb-4">
+        <label for="faction" class="mr-2">Filter by Faction:</label>
+        <select name="faction" id="faction" class="form-control mr-4">
+            <option value="">All</option>
+            {% for faction in factions %}
+                <option value="{{ faction.id }}" {% if selected_faction == faction.id|stringformat:"s" %}selected{% endif %}>{{ faction.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="form-check mr-4">
+            <input class="form-check-input" type="checkbox" name="show_completed" id="show_completed" {% if show_completed == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="show_completed">
+                Show Completed Projects
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+    </form>
+    <!-- Project List -->
     {% for project in projects %}
-    <li><a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></li>
+    <div class="card mb-4">
+        <div class="card-body">
+            <a href="{% url 'project_detail' project.id timeline.id %}" style="text-decoration: none; color: inherit;">
+                <div class="d-flex justify-content-between">
+                    <h3>{{ project.name }}</h3>
+                    <p><strong>Progress:</strong> {{ project.progress_percentage|floatformat:2 }}%</p>
+                </div>
+                <p class="text-muted">{{ project.description|truncatewords:20 }}</p>
+                <p><strong>Associated Factions:</strong>
+                    {% for faction in project.factions.all %}
+                        <a href="{% url 'faction_detail' faction.id timeline.id %}">{{ faction.name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            </a>
+        </div>
+    </div>
     {% empty %}
-    <li>No projects available.</li>
+    <p class="text-muted">No projects available.</p>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

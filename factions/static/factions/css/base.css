@@ -156,3 +156,24 @@
     text-decoration: underline;
   }
   
+  /* Styles for the project list and detail views */
+.card {
+  border: 1px solid var(--accent-blue);
+  border-radius: 8px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card h3 {
+  color: var(--dark-blue);
+}
+
+.form-inline .form-control {
+  margin-right: 10px;
+}
+
+.form-inline .form-check {
+  margin-right: 10px;
+}

@@ -70,15 +70,20 @@
             <div class="card">
                 <div class="card-body">
                     <h3>Projects</h3>
+                    <!-- Add New Project Button -->
+                    <a href="{% url 'project_create' timeline.id %}?faction_id={{ faction.id }}" class="btn btn-primary mb-3">Add New Project</a>
                     <!-- Active Projects -->
                     <h4>Active Projects</h4>
                     {% for project in faction.active_projects %}
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h5>{{ project.name }}</h5>
+                                <h5>
+                                    <a href="{% url 'project_detail' project.id timeline.id %}">{{ project.name }}</a>
+                                </h5>
                                 {% if project.description %}
                                     <p>{{ project.description }}</p>
                                 {% endif %}
+                                <p>Progress: {{ project.progress_percentage|floatformat:2 }}%</p>
                                 <ul>
                                     {% for clock in project.clocks.all %}
                                         <li>
@@ -101,7 +106,9 @@
                     {% for project in faction.completed_projects %}
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h5>{{ project.name }}</h5>
+                                <h5>
+                                    <a href="{% url 'project_detail' project.id timeline.id %}">{{ project.name }}</a>
+                                </h5>
                                 {% if project.description %}
                                     <p>{{ project.description }}</p>
                                 {% endif %}

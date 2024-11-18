@@ -13,11 +13,17 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'timeline_list' %}">Faction Manager</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Add navigation items if needed -->
+        <!-- Other nav items -->
+        {% if timeline %}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'project_list' timeline.id %}">Projects</a>
+                </li>
+                <!-- Other nav items -->
+            </ul>
+        </div>
+        {% endif %}
     </nav>
     <div class="container mt-4">
         {% block content %}{% endblock %}

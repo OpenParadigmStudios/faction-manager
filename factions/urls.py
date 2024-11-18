@@ -22,9 +22,11 @@ urlpatterns = [
     path('factions/edit/<int:pk>/<int:timeline_id>', views.FactionUpdateView.as_view(), name='faction_update'),
     path('factions/delete/<int:pk>/<int:timeline_id>', views.FactionDeleteView.as_view(), name='faction_delete'),
 
-    path('projects/<int:timeline_id>', views.ProjectListView.as_view(), name='project_list'),
-    path('projects/create/<int:timeline_id>', views.ProjectCreateView.as_view(), name='project_create'),
-    path('projects/<int:pk>/<int:timeline_id>', views.ProjectDetailView.as_view(), name='project_detail'),
+    path('projects/<int:timeline_id>/', views.ProjectListView.as_view(), name='project_list'),
+    path('projects/create/<int:timeline_id>/', views.ProjectCreateView.as_view(), name='project_create'),
+    path('projects/<int:pk>/<int:timeline_id>/', views.ProjectDetailView.as_view(), name='project_detail'),
+    path('projects/edit/<int:pk>/<int:timeline_id>/', views.ProjectUpdateView.as_view(), name='project_update'),
+    path('projects/delete/<int:pk>/<int:timeline_id>/', views.ProjectDeleteView.as_view(), name='project_delete'),
 
     path('clocks/<int:timeline_id>', views.ClockListView.as_view(), name='clock_list'),
     path('clocks/create/<int:timeline_id>', views.ClockCreateView.as_view(), name='clock_create'),

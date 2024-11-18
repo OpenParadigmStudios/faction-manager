@@ -1,6 +1,44 @@
 {% extends "base.html" %}
-{% block title %}Project Detail{% endblock %}
+
+{% block title %}{{ project.name }}{% endblock %}
+
 {% block content %}
-<h1>{{ project.name }}</h1>
-<p>{{ project.description }}</p>
+<div class="container mt-5">
+    <!-- Project Name and Edit Button -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>{{ project.name }}</h1>
+        <div>
+            <a href="{% url 'project_update' project.id timeline.id %}" class="btn btn-secondary">Edit Project</a>
+            <a href="{% url 'project_delete' project.id timeline.id %}" class="btn btn-danger">Delete Project</a>
+        </div>
+    </div>
+    <p class="mt-3">{{ project.description }}</p>
+    <p><strong>Associated Factions:</strong>
+        {% for faction in project.factions.all %}
+            <a href="{% url 'faction_detail' faction.id timeline.id %}">{{ faction.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    <p><strong>Progress:</strong> {{ progress_percentage|floatformat:2 }}%</p>
+    <!-- Clocks -->
+    <h3 class="mt-5">Clocks</h3>
+    {% for clock in project.clocks.all %}
+        <p>
+            <strong>{{ project.name }}:</strong>
+            {{ clock.calculate_progress }}/{{ clock.length }}
+        </p>
+    {% empty %}
+        <p>No clocks associated with this project.</p>
+    {% endfor %}
+    <!-- Events Affecting the Project -->
+    <h3 class="mt-5">Events Affecting This Project</h3>
+    <ul class="list-group">
+        {% for event in events %}
+        <li class="list-group-item">
+            <a href="{% url 'event_detail' event.id timeline.id %}">{{ event.name }} (When: {{ event.when }})</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No events affecting this project.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

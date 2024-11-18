@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Timeline, Session, Event, Faction, Project, Clock, ClockChange
-from .forms import TimelineForm
+from .forms import TimelineForm, ProjectForm
 from django.urls import reverse_lazy, reverse
 from django.db.models import Sum
 
@@ -166,21 +166,119 @@ class EventDetailView(DetailView):
     template_name = 'event/event_detail.html'
     context_object_name = 'event'
 
-# Placeholder Project Views
+# Project Views
 class ProjectListView(ListView):
     model = Project
     template_name = 'project/project_list.html'
     context_object_name = 'projects'
 
-class ProjectCreateView(CreateView):
-    model = Project
-    template_name = 'project/project_form.html'
-    fields = ['name', 'description']
+    def get_queryset(self):
+        timeline = get_object_or_404(Timeline, id=self.kwargs['timeline_id'])
+        projects = Project.objects.filter(timeline=timeline)
+        # Filter by Faction if provided
+        faction_id = self.request.GET.get('faction')
+        if faction_id:
+            projects = projects.filter(factions__id=faction_id)
+        # Filter by completed status
+        show_completed = self.request.GET.get('show_completed', 'on')
+        if show_completed != 'on':
+            projects = projects.exclude(clocks__finished__gt=0)
+        # Annotate with progress percentage
+        projects = list(projects.distinct())
+        projects.sort(key=lambda p: p.progress_percentage(), reverse=True)
+        return projects
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        timeline = get_object_or_404(Timeline, id=self.kwargs['timeline_id'])
+        context['timeline'] = timeline
+        context['factions'] = Faction.objects.filter(timeline=timeline)
+        context['selected_faction'] = self.request.GET.get('faction', '')
+        context['show_completed'] = self.request.GET.get('show_completed', 'on')
+        return context
 
 class ProjectDetailView(DetailView):
     model = Project
     template_name = 'project/project_detail.html'
     context_object_name = 'project'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = self.object
+        context['timeline'] = project.timeline
+        # Calculate progress
+        context['progress_percentage'] = project.progress_percentage()
+        # Get all events affecting the project's clocks
+        events = Event.objects.filter(
+            clock_changes__clock__in=project.clocks.all()
+        ).distinct().order_by('-when')
+        context['events'] = events
+        return context
+
+class ProjectCreateView(CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'project/project_form.html'
+
+    def get_success_url(self):
+        return reverse('project_detail', kwargs={'pk': self.object.pk, 'timeline_id': self.object.timeline.id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        timeline = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        context['timeline'] = timeline
+        context['factions'] = Faction.objects.filter(timeline=timeline)
+        # Pre-select faction if passed in URL
+        faction_id = self.request.GET.get('faction_id')
+        if faction_id:
+            context['form'].fields['factions'].initial = [faction_id]
+        return context
+
+    def form_valid(self, form):
+        timeline = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        form.instance.timeline = timeline
+        response = super().form_valid(form)
+        # Associate factions
+        factions = form.cleaned_data.get('factions')
+        if factions:
+            form.instance.factions.set(factions)
+        else:
+            form.instance.factions.clear()
+        # Create the Clock
+        clock_length = form.cleaned_data.get('clock_length')
+        Clock.objects.create(
+            project=self.object,
+            length=clock_length,
+            title=form.instance.name
+        )
+        return response
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'project/project_form.html'
+
+    def get_success_url(self):
+        return reverse('project_detail', kwargs={'pk': self.object.pk, 'timeline_id': self.object.timeline.id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        timeline = self.object.timeline
+        context['timeline'] = timeline
+        context['factions'] = Faction.objects.filter(timeline=timeline)
+        return context
+
+class ProjectDeleteView(DeleteView):
+    model = Project
+    template_name = 'project/project_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse('project_list', kwargs={'timeline_id': self.object.timeline.id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['timeline'] = self.object.timeline
+        return context
 
 # Placeholder Clock Views
 class ClockListView(ListView):
