@@ -1,0 +1,201 @@
+- name: The Hive
+  description: "A guild of legitimate merchants who secretly trade in contraband. Named for their symbol, a golden bee."
+  tier: 4
+  goals: "Dominate the contraband market; Avenge Roric's murder"
+  leadership: "Djera Maha (leader, bold, strategic, confident); Karth Orris (mercenary commander, ruthless, insightful, jealous)"
+  values: "Avoid dealing with occult or arcane groups; members favor the Church of Ecstasy and reject superstitions."
+  history: "Djera Maha rose from an urchin in the Dagger Isles to build a vast smuggling network in Doskvol."
+  game: Blades in the Dark
+
+- name: The Unseen
+  description: "An insidious criminal enterprise with secret membership. Thought to pull the strings of the entire underworld."
+  tier: 4
+  goals: "Infiltrate the Spirit Wardens; Expand into other cities"
+  leadership: "The Tower (leader); The Star (captain); Grull (ambitious thug undercover as a coach driver)"
+  values: "Maintain perfect secrecy through arcane rituals; memory-wiping rituals for non-members who discover them."
+  history: "The Unseen aim to control the underworld and are plotting to infiltrate the Spirit Wardens."
+  game: Blades in the Dark
+
+- name: The Circle of Flame
+  description: "A secret society of antiquarians and scholars; a cover for extortion, graft, vice, and murder."
+  tier: 3
+  goals: "Acquire all the ancient artifacts of Kotar"
+  leadership: >-
+    The Seven (leadership): Elstera Avrathi (Iruvian diplomat, secretive, gracious);
+    Lady Drake (magistrate, cunning, ruthless); Raffello (painter, visionary, obsessive);
+    Lord Mora (noble, cold, suspicious); Lady Penderyn (noble, charming, patient);
+    Madame Tesslyn (vice purveyor, sophisticated, subtle); Harvale Brogan (vice purveyor, shrewd, quiet)
+  values: "One of The Seven is a demon in disguise."
+  history: "They seek powerful artifacts from the Lost District, especially those related to the legendary Kotar."
+  game: Blades in the Dark
+
+- name: Lord Scurlock
+  description: "An ancient noble, said to be immortal. Possibly a vampire or sorcerer. Obsessed with the occult."
+  tier: 3
+  goals: "Fulfill debt to Setarra; Obtain arcane secrets (repeating)"
+  leadership: "Lord Scurlock (enigmatic, cold, arcane, old-fashioned)"
+  values: "Immune to spirits; makes no sound when moving; difficult to look at directly."
+  history: "Bound by ancient magic to the demon Setarra, Scurlock must aid her in freeing sea demons."
+  game: Blades in the Dark
+
+- name: The Silver Nails
+  description: "A company of Severosi mercenaries renowned as ghost killers."
+  tier: 3
+  goals: "Destroy spirits in the Lost District; Control the Lost District"
+  leadership: "Seresh (leader, bold, brash, defiant); Tuhan (lead scout, bold, cunning, charming)"
+  values: "Wear rings made from silver nails to prevent possession; trained in ghost-fighting."
+  history: "Former mercenaries from the Unity War, now seeking to plunder the Lost District."
+  game: Blades in the Dark
+
+- name: The Billhooks
+  description: "A tough gang of thugs who prefer hatchets, meat hooks, and polearms."
+  tier: 2
+  goals: "Terrorize magistrates to pardon members in prison"
+  leadership: "Tarvul (leader in prison, savage, arrogant, family man); Erin (captain, Tarvul’s sister, ambitious); Coran (Tarvul’s son, fierce, loyal)"
+  values: "Known for their grisly displays of butchered victims. The Bluecoats turn a blind eye to their savagery."
+  history: "Internal struggle between Erin and Coran for leadership while Tarvul is imprisoned."
+  game: Blades in the Dark
+
+- name: Bluecoats
+  description: "The City Watch of Duskwall. Known as the meanest gang in the city. Corrupt, violent, and cruel."
+  tier: 3
+  goals: "The Bluecoats have become jealous of the elite hardware and vehicles used by the Imperial Military. They want to refit their watch-guards in heavy armor and weapons, to better strike fear into those they prey upon."
+  leadership: "Commander Clelland (chief commissioner of the City Watch, corrupt, cruel, arrogant). Captain Michter (chief instructor, ambitious, fierce, confident). Captain Vale (quartermaster, loyal, insightful, quiet)."
+  values: "The Bluecoats are divided into companies by district, and they have fierce rivalries, encouraged by their superiors—often good-natured, but sometimes violent."
+  history: "The Bluecoats claim the whole city as their turf, but find their influence severely limited in Whitecrown, where the Imperial Military garrison holds sway under command of the Lord Governor."
+  game: Blades in the Dark
+
+- name: The Crows
+  description: "An old gang with new leadership. Known for illegal gambling and extortion rackets."
+  tier: 2
+  goals: "Reestablish control of Crow’s Foot; Rise in Tier"
+  leadership: "Lyssa (leader, brash, killer, noble family); Bell (second-in-command, loyal)"
+  values: "Roric’s vengeful ghost is at large after Lyssa murdered him."
+  history: "Lyssa's uncertain leadership after killing Roric is causing the gang's hold on Crow’s Foot to slip."
+  game: Blades in the Dark
+
+- name: The Lampblacks
+  description: "The former lamplighter guild, turned to crime when replaced by electric lights."
+  tier: 2
+  goals: "Destroy the Red Sashes; Become ward boss of Crow’s Foot"
+  leadership: "Bazso Baz (leader, charming, ruthless); Pickett (second, shrewd, suspicious); Henner (thug, loyal)"
+  values: "Bazso Baz is a member of a secret cult, sometimes putting its needs first."
+  history: "At war with the Red Sashes over turf and vengeance; recruiting every free blade in the district."
+  game: Blades in the Dark
+
+- name: The Red Sashes
+  description: "Originally an Iruvian sword school, now expanded into criminal endeavors."
+  tier: 2
+  goals: "Destroy the Lampblacks; Become ward boss of Crow’s Foot"
+  leadership: "Mylera Klev (leader, shrewd, ruthless, art collector)"
+  values: "Members include children of Iruvian nobility; harming them invites powerful retribution."
+  history: "At war with the Lampblacks; well-connected with consulates and inspectors."
+  game: Blades in the Dark
+
+- name: The Dimmer Sisters
+  description: "House-bound recluses with an occult reputation."
+  tier: 2
+  goals: "Dominate the spirit trade and obtain arcane secrets"
+  leadership: "Unknown sisters; Roslyn (servant, patient, arcane); Irelen (spark-craft tinkerer, obsessive)"
+  values: "Their true number and nature are unknown; rumored to be possessing spirits or vampires."
+  history: "Consolidating the trade of captured spirits; possibly for ulterior motives beyond wealth."
+  game: Blades in the Dark
+
+- name: Gondoliers
+  description: "The canal boat operators. Venerated by ancient tradition; said to know occult secrets."
+  tier: 3
+  goals: "Investigate desecrated hollows; Destroy spirit wells (repeating)"
+  leadership: "Eisele (leader, serene, knowledgeable); Griggs (chief Whisper, strange, haunted)"
+  values: "Initiates gain the Whisper’s Compel ability; protect citizens from rogue spirits."
+  history: "Investigating ritually disfigured hollows in canals; Spirit Wardens ignoring the situation."
+  game: Blades in the Dark
+
+- name: The Fog Hounds
+  description: "A crew of rough smugglers looking for a patron."
+  tier: 1
+  goals: "Eliminate rival smugglers; Obtain a regular patron"
+  leadership: "Margette Vale (leader, quiet, fearless); Bear (second, fierce, brash); Goldie (navigator, calculating)"
+  values: "Veterans of the Void Sea; loyalty is hard-won but fierce."
+  history: "Mastered Northern smuggling routes; seeking to absorb rivals and secure steady work."
+  game: Blades in the Dark
+
+- name: The Grinders
+  description: "A vicious gang of former dockers and leviathan blood refinery workers."
+  tier: 2
+  goals: "Raise a crew, steal a warship; Fill war treasury"
+  leadership: "Hutton (leader, confident, volatile); Sercy (second, crippled, defiant); Derret (toughest member, shrewd)"
+  values: "Many are mutated by toxic rain from Lockport."
+  history: "Aim to seize control of Lockport and destroy Imperial refineries; fund mission through crime."
+  game: Blades in the Dark
+
+- name: The Gray Cloaks
+  description: "Former Bluecoats who turned to crime after being framed and expelled."
+  tier: 2
+  goals: "Secure Six Towers as their turf; Avenge their expulsion"
+  leadership: "Nessa (leader, scrupulous, daring); Hutch (second, brash, fierce)"
+  values: "Use old uniforms to impersonate City Watch."
+  history: "Framed for a crime by their commander; seek vengeance and control of Six Towers."
+  game: Blades in the Dark
+
+- name: The Lost
+  description: "A group of street-toughs and ex-soldiers dedicated to protecting the downtrodden."
+  tier: 1
+  goals: "Destroy cruel workhouses (repeating)"
+  leadership: "Cortland (leader, idealist, candid)"
+  values: "Each member atones for past sins through just deeds."
+  history: "Focusing on sabotaging cruel foremen in Coalridge; foremen seek to eliminate them."
+  game: Blades in the Dark
+
+- name: Ulf Ironborn
+  description: "A brutal Skovlander, newly arrived in Doskvol, fighting everyone for turf."
+  tier: 1
+  goals: "Carve out gang territory; Rise in Tier"
+  leadership: "Ulf Ironborn (leader, ruthless, bold); Havid (second, volatile, shrewd)"
+  values: "Distrusts Akorosi; trusts Skovlanders."
+  history: "Rage sparked by anti-Skovlander sentiment; leading to conflicts with locals."
+  game: Blades in the Dark
+
+- name: Leviathan Hunters
+  description: "Captains and crews that hunt titanic demons of the Void Sea for their blood."
+  tier: 5
+  goals: "Discover new hunting grounds; Surplus runs dry"
+  leadership: "Lord Strangford (captain, ruthless); Lady Clave (captain, daring); Lady Ankhayat (Iruvian captain, charming)"
+  values: "Keep the secret of dwindling leviathan supply."
+  history: "Known hunting grounds are barren; must find new ones before supplies run out."
+  game: Blades in the Dark
+
+- name: Ministry of Preservation
+  description: "Oversees transportation between cities and the distribution of vital resources."
+  tier: 5
+  goals: "Seize control of Leviathan Hunters; Infiltrate the City Council"
+  leadership: "Lord Dalmore (executive officer, commanding); Lady Slane (chief of operations, subtle); Captain Lannock (mercenary commander, ruthless)"
+  values: "Believe leviathan hunters are too vital to be left to nobles; seek to bring them under control."
+  history: "Plotting espionage and sabotage to seize control of leviathan hunters."
+  game: Blades in the Dark
+
+- name: Spirit Wardens
+  description: "The bronze-masked hunters who destroy rogue spirits; run Bellweather Crematorium."
+  tier: 4
+  goals: "Uncover the infiltrators"
+  leadership: "Membership is secret and anonymous; known only by code-names."
+  values: "Maintain anonymity; cut all personal ties."
+  history: "Aware of infiltration attempts; laying a trap to uncover and eliminate infiltrators."
+  game: Blades in the Dark
+
+- name: The Reconciled
+  description: "An association of ancient spirits who have not gone feral over time."
+  tier: 3
+  goals: "Infiltrate the City Council; Infiltrate the Church of Ecstasy"
+  leadership: "Membership is not publicly known."
+  values: "Spirits who can possess victims indefinitely without adverse effects."
+  history: "Seek to rule Doskvol by possessing key figures; targeting council and church members."
+  game: Blades in the Dark
+
+- name: The Church of Ecstasy
+  description: "The 'state religion' honoring the body and abhorring the spirit world; essentially a secret society."
+  tier: 4
+  goals: "Unlock the secret of ascension; Eliminate the Reconciled"
+  leadership: "Elder Rowan (leader, devout, visionary); Preceptor Dunvil (arcane researcher, obsessive)"
+  values: "Believe in becoming like demons, pure beings without spirits."
+  history: "Conduct dark experiments to unlock ascension; aim to eliminate the Reconciled."
+  game: Blades in the Dark

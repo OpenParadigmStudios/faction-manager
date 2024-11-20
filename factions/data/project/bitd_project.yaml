@@ -1,0 +1,319 @@
+- name: Dominate the contraband market
+  description: "The Hive seeks to control all contraband markets in Doskvol."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Hive
+
+- name: Avenge Roric's murder
+  description: "The Hive aims to avenge the murder of Roric, leader of the Crows."
+  length: 6
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Hive
+
+- name: Infiltrate the Spirit Wardens
+  description: "The Unseen plan to infiltrate the secretive Spirit Wardens."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Unseen
+
+- name: Expand into other cities
+  description: "The Unseen aim to expand their influence beyond Doskvol."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Unseen
+
+- name: Acquire artifacts of Kotar
+  description: "The Circle of Flame seeks all ancient artifacts related to Kotar."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Circle of Flame
+
+- name: Terrorize magistrates
+  description: "The Billhooks aim to terrorize magistrates to pardon imprisoned members."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Billhooks
+
+- name: Procure military equipment
+  description: "The Billhooks seek bigger budgets and military arms."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Bluecoats
+
+- name: Reestablish control of Crow’s Foot
+  description: "The Crows aim to reassert their dominance over Crow’s Foot district."
+  length: 6
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Crows
+
+- name: Crows Rise in Tier
+  description: "The Crows seek to increase their power and influence."
+  length: 6
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Crows
+
+- name: Destroy the Red Sashes
+  description: "The Lampblacks aim to eliminate their rivals, the Red Sashes."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Lampblacks
+
+- name: Lampblacks become ward boss of Crow’s Foot
+  description: "The Lampblacks want to control Crow’s Foot district."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Lampblacks
+
+- name: Destroy the Lampblacks
+  description: "The Red Sashes seek to eliminate the Lampblacks."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Red Sashes
+
+- name: Red Sashes become ward boss of Crow’s Foot
+  description: "The Red Sashes aim to control Crow’s Foot district."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Red Sashes
+
+- name: Dominate the spirit trade
+  description: "The Dimmer Sisters aim to control the trade of captured spirits."
+  length: 6
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Dimmer Sisters
+
+- name: Dimmer Sisters obtain arcane secrets
+  description: "The Dimmer Sisters seek new arcane knowledge."
+  length: 4
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Dimmer Sisters
+
+- name: Investigate desecrated hollows
+  description: "The Gondoliers are investigating ritually disfigured hollows in the canals."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Gondoliers
+
+- name: Destroy spirit wells
+  description: "The Gondoliers aim to eliminate dangerous spirit wells."
+  length: 4
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Gondoliers
+
+- name: Eliminate rival smugglers
+  description: "The Fog Hounds seek to remove competing smuggling crews."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Fog Hounds
+
+- name: Obtain a regular patron
+  description: "The Fog Hounds aim to secure a steady employer for their smuggling operations."
+  length: 6
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Fog Hounds
+
+- name: Raise a crew and steal a warship
+  description: "The Grinders plan to assemble a crew and hijack a warship."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Grinders
+
+- name: Fill war treasury
+  description: "The Grinders need to accumulate funds for their mission."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Grinders
+
+- name: Secure Six Towers as turf
+  description: "The Gray Cloaks aim to take control of Six Towers district."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Gray Cloaks
+
+- name: Avenge their expulsion
+  description: "The Gray Cloaks seek vengeance for being framed and expelled."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Gray Cloaks
+
+- name: Destroy cruel workhouses
+  description: "The Lost aim to eliminate oppressive workhouses in the city."
+  length: 4
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Lost
+
+- name: Carve out gang territory
+  description: "Ulf Ironborn plans to establish his own turf in the city."
+  length: 6
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Ulf Ironborn
+
+- name: Ulf Ironborn Rise in Tier
+  description: "Ulf Ironborn aims to increase his gang's power."
+  length: 4
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Ulf Ironborn
+
+- name: Discover new hunting grounds
+  description: "The Leviathan Hunters need to find new areas rich in leviathans."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Leviathan Hunters
+
+- name: Surplus runs dry
+  description: "The Leviathan Hunters are facing dwindling supplies of leviathan blood."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Leviathan Hunters
+
+- name: Seize control of Leviathan Hunters
+  description: "The Ministry of Preservation aims to take over the Leviathan Hunters."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Ministry of Preservation
+
+- name: Infiltrate the City Council
+  description: "The Ministry of Preservation plans to infiltrate the city government."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Ministry of Preservation
+
+- name: Uncover the infiltrators
+  description: "The Spirit Wardens are trying to identify and eliminate infiltrators."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Spirit Wardens
+
+- name: Infiltrate the City Council
+  description: "The Reconciled aim to possess key members of the City Council."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Reconciled
+
+- name: Infiltrate the Church of Ecstasy
+  description: "The Reconciled plan to infiltrate the Church's leadership."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Reconciled
+
+- name: Unlock the secret of ascension
+  description: "The Church of Ecstasy seeks to become like demons, pure beings without spirits."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Church of Ecstasy
+
+- name: Eliminate the Reconciled
+  description: "The Church of Ecstasy aims to destroy the Reconciled spirits."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Church of Ecstasy
+
+- name: Fulfill debt to Setarra
+  description: "Lord Scurlock must aid the demon Setarra in freeing sea demons."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Lord Scurlock
+
+- name: Lord Scurlock obtain arcane secrets
+  description: "Lord Scurlock seeks new occult knowledge."
+  length: 6
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Lord Scurlock
+
+- name: Destroy spirits in the Lost District
+  description: "The Silver Nails aim to eliminate ghosts in the Lost District."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Silver Nails
+
+- name: Control the Lost District
+  description: "The Silver Nails plan to seize and plunder the Lost District."
+  length: 8
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - The Silver Nails
+
+- name: Develop alternative fuel
+  description: "The Sparkwrights are working on a replacement for leviathan blood."
+  length: 12
+  finished: null
+  game: Blades in the Dark
+  factions:
+    - Sparkwrights

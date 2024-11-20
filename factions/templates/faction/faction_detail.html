@@ -14,12 +14,44 @@
         <div class="col-md-6">
             <!-- Tabbed Content -->
             <ul class="nav nav-tabs" id="factionTab" role="tablist">
-                <!-- (Tabs code remains the same) -->
-                <!-- ... -->
+                <li class="nav-item">
+                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab"
+                       aria-controls="description" aria-selected="true">Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="goals-tab" data-toggle="tab" href="#goals" role="tab"
+                       aria-controls="goals" aria-selected="false">Goals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="leadership-tab" data-toggle="tab" href="#leadership" role="tab"
+                       aria-controls="leadership" aria-selected="false">Leadership</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="values-tab" data-toggle="tab" href="#values" role="tab"
+                       aria-controls="values" aria-selected="false">Values</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab"
+                       aria-controls="history" aria-selected="false">History</a>
+                </li>
             </ul>
             <div class="tab-content" id="factionTabContent">
-                <!-- (Tab panes code remains the same) -->
-                <!-- ... -->
+                <div class="tab-pane fade show active" id="description" role="tabpanel"
+                     aria-labelledby="description-tab">
+                    <p class="mt-3">{{ faction.description }}</p>
+                </div>
+                <div class="tab-pane fade" id="goals" role="tabpanel" aria-labelledby="goals-tab">
+                    <p class="mt-3">{{ faction.goals }}</p>
+                </div>
+                <div class="tab-pane fade" id="leadership" role="tabpanel" aria-labelledby="leadership-tab">
+                    <p class="mt-3">{{ faction.leadership }}</p>
+                </div>
+                <div class="tab-pane fade" id="values" role="tabpanel" aria-labelledby="values-tab">
+                    <p class="mt-3">{{ faction.values }}</p>
+                </div>
+                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                    <p class="mt-3">{{ faction.history }}</p>
+                </div>
             </div>
             <!-- Recent Events -->
             <h3 class="mt-5">Recent Events</h3>
