@@ -59,8 +59,8 @@
     border-color: var(--dark-blue);
   }
   
-  /* Feed Layout for Timeline Detail Page */
-  .timeline-grid {
+  /* Feed Layout for Game Detail Page */
+  .game-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;

@@ -29,7 +29,7 @@
             {{ form.history.label_tag }} {{ form.history }}
         </div>
         <button type="submit" class="btn btn-success">Save</button>
-        <a href="{% url 'faction_list' timeline_id=timeline.id %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'faction_list' game_id=game.id %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

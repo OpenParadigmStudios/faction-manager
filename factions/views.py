@@ -1,44 +1,44 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Timeline, Session, Event, Faction, Project, Clock, ClockChange
-from .forms import TimelineForm, ProjectForm
+from .models import Game, Session, Event, Faction, Project  # Removed Clock, ClockChange
+from .forms import GameForm, ProjectForm
 from django.urls import reverse_lazy, reverse
 from django.db.models import Sum
 
-# Timelines
-class TimelineListView(ListView):
-    model = Timeline
-    template_name = 'timeline/timeline_list.html'
-    context_object_name = 'timelines'
+# Games
+class GameListView(ListView):
+    model = Game
+    template_name = 'game/game_list.html'
+    context_object_name = 'games'
 
-class TimelineDetailView(DetailView):
-    model = Timeline
-    template_name = 'timeline/timeline_detail.html'
-    context_object_name = 'timeline'
+class GameDetailView(DetailView):
+    model = Game
+    template_name = 'game/game_detail.html'
+    context_object_name = 'game'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        timeline = self.object
+        game = self.object
 
         # Using model helper methods to get the dynamic data
-        context['latest_sessions'] = timeline.latest_sessions()
-        context['latest_events'] = timeline.latest_events()
-        context['top_factions'] = timeline.top_factions()
-        context['top_projects'] = timeline.top_projects()
-        context['now'] = timeline.now()
+        context['latest_sessions'] = game.latest_sessions()
+        context['latest_events'] = game.latest_events()
+        context['top_factions'] = game.top_factions()
+        context['top_projects'] = game.top_projects()
+        context['now'] = game.now()
         return context
 
-class TimelineCreateView(CreateView):
-    model = Timeline
+class GameCreateView(CreateView):
+    model = Game
     fields = ['name', 'description']
-    template_name = 'timeline/timeline_form.html'
-    success_url = reverse_lazy('timeline_list')
+    template_name = 'game/game_form.html'
+    success_url = reverse_lazy('game_list')
 
-class TimelineUpdateView(UpdateView):
-    model = Timeline
+class GameUpdateView(UpdateView):
+    model = Game
     fields = ['name', 'description']
-    template_name = 'timeline/timeline_form.html'
-    success_url = reverse_lazy('timeline_list')
+    template_name = 'game/game_form.html'
+    success_url = reverse_lazy('game_list')
 
     def form_valid(self, form):
         # Implementing deletion functionality
@@ -47,10 +47,10 @@ class TimelineUpdateView(UpdateView):
             return redirect(self.success_url)
         return super().form_valid(form)
 
-class TimelineDeleteView(DeleteView):
-    model = Timeline
-    template_name = 'timeline/timeline_confirm_delete.html'
-    success_url = reverse_lazy('timeline_list')
+class GameDeleteView(DeleteView):
+    model = Game
+    template_name = 'game/game_confirm_delete.html'
+    success_url = reverse_lazy('game_list')
 
 # Factions
 class FactionListView(ListView):
@@ -60,13 +60,13 @@ class FactionListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        context['game'] = Game.objects.get(id=self.kwargs['game_id'])
         return context
 
     def get_queryset(self):
-        factions = Faction.objects.filter(timeline_id=self.kwargs['timeline_id'])
-        factions = factions.annotate(total_clock_length=Sum('projects__clocks__length'))
-        factions = factions.order_by('-total_clock_length')
+        factions = Faction.objects.filter(game_id=self.kwargs['game_id'])
+        factions = factions.annotate(total_project_length=Sum('projects__length'))
+        factions = factions.order_by('-total_project_length')
         return factions
 
 class FactionDetailView(DetailView):
@@ -76,7 +76,7 @@ class FactionDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        context['game'] = Game.objects.get(id=self.kwargs['game_id'])
         # Add recent events
         context['recent_events'] = self.get_recent_events()
         return context
@@ -84,7 +84,7 @@ class FactionDetailView(DetailView):
     def get_recent_events(self):
         faction = self.get_object()
         recent_events = Event.objects.filter(
-            clock_changes__clock__project__factions=faction
+            project_changes__project__factions=faction
         ).distinct().order_by('-when')[:5]
         return recent_events
 
@@ -94,15 +94,15 @@ class FactionCreateView(CreateView):
     template_name = 'faction/faction_form.html'
 
     def get_success_url(self):
-        return reverse('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
+        return reverse('faction_list', kwargs={'game_id': self.kwargs['game_id']})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        context['game'] = Game.objects.get(id=self.kwargs['game_id'])
         return context
 
     def form_valid(self, form):
-        form.instance.timeline_id = self.kwargs['timeline_id']
+        form.instance.game_id = self.kwargs['game_id']
         return super().form_valid(form)
 
 class FactionUpdateView(UpdateView):
@@ -112,15 +112,15 @@ class FactionUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        context['game'] = Game.objects.get(id=self.kwargs['game_id'])
         return context
 
     def form_valid(self, form):
-        form.instance.timeline_id = self.kwargs['timeline_id']
+        form.instance.game_id = self.kwargs['game_id']
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
+        return reverse('faction_list', kwargs={'game_id': self.kwargs['game_id']})
 
 class FactionDeleteView(DeleteView):
     model = Faction
@@ -128,11 +128,11 @@ class FactionDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['timeline'] = Timeline.objects.get(id=self.kwargs['timeline_id'])
+        context['game'] = Game.objects.get(id=self.kwargs['game_id'])
         return context
 
     def get_success_url(self):
-        return reverse('faction_list', kwargs={'timeline_id': self.kwargs['timeline_id']})
+        return reverse('faction_list', kwargs={'game_id': self.kwargs['game_id']})
 
 # Placeholder Session Views
 class SessionListView(ListView):
@@ -173,8 +173,8 @@ class ProjectListView(ListView):
     context_object_name = 'projects'
 
     def get_queryset(self):
-        timeline = get_object_or_404(Timeline, id=self.kwargs['timeline_id'])
-        projects = Project.objects.filter(timeline=timeline)
+        game = get_object_or_404(Game, id=self.kwargs['game_id'])
+        projects = Project.objects.filter(game=game)
         # Filter by Faction if provided
         faction_id = self.request.GET.get('faction')
         if faction_id:
@@ -182,7 +182,7 @@ class ProjectListView(ListView):
         # Filter by completed status
         show_completed = self.request.GET.get('show_completed', 'on')
         if show_completed != 'on':
-            projects = projects.exclude(clocks__finished__gt=0)
+            projects = projects.filter(finished__isnull=True)
         # Annotate with progress percentage
         projects = list(projects.distinct())
         projects.sort(key=lambda p: p.progress_percentage(), reverse=True)
@@ -190,9 +190,9 @@ class ProjectListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        timeline = get_object_or_404(Timeline, id=self.kwargs['timeline_id'])
-        context['timeline'] = timeline
-        context['factions'] = Faction.objects.filter(timeline=timeline)
+        game = get_object_or_404(Game, id=self.kwargs['game_id'])
+        context['game'] = game
+        context['factions'] = Faction.objects.filter(game=game)
         context['selected_faction'] = self.request.GET.get('faction', '')
         context['show_completed'] = self.request.GET.get('show_completed', 'on')
         return context
@@ -205,12 +205,12 @@ class ProjectDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         project = self.object
-        context['timeline'] = project.timeline
+        context['game'] = project.game
         # Calculate progress
         context['progress_percentage'] = project.progress_percentage()
-        # Get all events affecting the project's clocks
+        # Get all events affecting the project
         events = Event.objects.filter(
-            clock_changes__clock__in=project.clocks.all()
+            project_changes__project=project
         ).distinct().order_by('-when')
         context['events'] = events
         return context
@@ -221,13 +221,13 @@ class ProjectCreateView(CreateView):
     template_name = 'project/project_form.html'
 
     def get_success_url(self):
-        return reverse('project_detail', kwargs={'pk': self.object.pk, 'timeline_id': self.object.timeline.id})
+        return reverse('project_detail', kwargs={'pk': self.object.pk, 'game_id': self.object.game.id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        timeline = Timeline.objects.get(id=self.kwargs['timeline_id'])
-        context['timeline'] = timeline
-        context['factions'] = Faction.objects.filter(timeline=timeline)
+        game = Game.objects.get(id=self.kwargs['game_id'])
+        context['game'] = game
+        context['factions'] = Faction.objects.filter(game=game)
         # Pre-select faction if passed in URL
         faction_id = self.request.GET.get('faction_id')
         if faction_id:
@@ -235,8 +235,8 @@ class ProjectCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-        timeline = Timeline.objects.get(id=self.kwargs['timeline_id'])
-        form.instance.timeline = timeline
+        game = Game.objects.get(id=self.kwargs['game_id'])
+        form.instance.game = game
         response = super().form_valid(form)
         # Associate factions
         factions = form.cleaned_data.get('factions')
@@ -244,13 +244,6 @@ class ProjectCreateView(CreateView):
             form.instance.factions.set(factions)
         else:
             form.instance.factions.clear()
-        # Create the Clock
-        clock_length = form.cleaned_data.get('clock_length')
-        Clock.objects.create(
-            project=self.object,
-            length=clock_length,
-            title=form.instance.name
-        )
         return response
 
 class ProjectUpdateView(UpdateView):
@@ -259,13 +252,13 @@ class ProjectUpdateView(UpdateView):
     template_name = 'project/project_form.html'
 
     def get_success_url(self):
-        return reverse('project_detail', kwargs={'pk': self.object.pk, 'timeline_id': self.object.timeline.id})
+        return reverse('project_detail', kwargs={'pk': self.object.pk, 'game_id': self.object.game.id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        timeline = self.object.timeline
-        context['timeline'] = timeline
-        context['factions'] = Faction.objects.filter(timeline=timeline)
+        game = self.object.game
+        context['game'] = game
+        context['factions'] = Faction.objects.filter(game=game)
         return context
 
 class ProjectDeleteView(DeleteView):
@@ -273,41 +266,9 @@ class ProjectDeleteView(DeleteView):
     template_name = 'project/project_confirm_delete.html'
 
     def get_success_url(self):
-        return reverse('project_list', kwargs={'timeline_id': self.object.timeline.id})
+        return reverse('project_list', kwargs={'game_id': self.object.game.id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['timeline'] = self.object.timeline
+        context['game'] = self.object.game
         return context
-
-# Placeholder Clock Views
-class ClockListView(ListView):
-    model = Clock
-    template_name = 'clock/clock_list.html'
-    context_object_name = 'clocks'
-
-class ClockCreateView(CreateView):
-    model = Clock
-    template_name = 'clock/clock_form.html'
-    fields = ['title']
-
-class ClockDetailView(DetailView):
-    model = Clock
-    template_name = 'clock/clock_detail.html'
-    context_object_name = 'clock'
-
-# Placeholder ClockChange Views
-class ClockChangeListView(ListView):
-    model = ClockChange
-    template_name = 'clockchange/clockchange_list.html'
-    context_object_name = 'clockchanges'
-
-class ClockChangeCreateView(CreateView):
-    model = ClockChange
-    template_name = 'clockchange/clockchange_form.html'
-    fields = ['name', 'description']
-
-class ClockChangeDetailView(DetailView):
-    model = ClockChange
-    template_name = 'clockchange/clockchange_detail.html'
-    context_object_name = 'clockchange'

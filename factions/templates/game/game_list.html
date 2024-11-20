@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Games{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Games</h1>
+    <a href="{% url 'game_create' %}" class="btn btn-primary mb-4">Create New Game</a>
+    <div class="list-group">
+        {% for game in games %}
+            <a href="{% url 'game_detail' game.id %}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ game.name }}</h5>
+                <p class="mb-1">{{ game.description|truncatewords:20 }}</p>
+                <small>Last modified: {{ game.last_modified|date:"Y-m-d H:i" }}</small>
+            </a>
+        {% empty %}
+            <p class="text-muted">No games available. Click "Create New Game" to add one.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

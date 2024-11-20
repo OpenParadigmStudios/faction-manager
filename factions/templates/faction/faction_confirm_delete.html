@@ -10,7 +10,7 @@
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete</button>
-        <a href="{% url 'faction_detail' timeline_id=timeline.id pk=faction.id %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'faction_detail' game_id=game.id pk=faction.id %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

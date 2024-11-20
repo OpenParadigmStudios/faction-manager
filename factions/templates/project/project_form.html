@@ -16,12 +16,10 @@
             {{ form.factions.label_tag }}
             {{ form.factions }}
         </div>
-        {% if form.clock_length %}
         <div class="form-group">
-            {{ form.clock_length.label_tag }}
-            {{ form.clock_length }}
+            {{ form.length.label_tag }}
+            {{ form.length }}
         </div>
-        {% endif %}
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>

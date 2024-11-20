@@ -4,12 +4,12 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Factions in {{ timeline.name }}</h1>
-    <a href="{% url 'faction_create' timeline.id %}" class="btn btn-primary mb-4">Add New Faction</a>
+    <h1 class="mb-4">Factions in {{ game.name }}</h1>
+    <a href="{% url 'faction_create' game.id %}" class="btn btn-primary mb-4">Add New Faction</a>
     {% for faction in factions %}
     <div class="card mb-4">
         <div class="card-body">
-            <a href="{% url 'faction_detail' faction.id timeline.id %}" style="text-decoration: none; color: inherit;">
+            <a href="{% url 'faction_detail' faction.id game.id %}" style="text-decoration: none; color: inherit;">
                 <div class="row">
                     <!-- Left Side -->
                     <div class="col-md-4">
@@ -20,19 +20,7 @@
                     <div class="col-md-4">
                         <h4>Active Projects</h4>
                         {% for project in faction.active_projects %}
-                            <p><strong>{{ project.name }}</strong></p>
-                            <ul>
-                                {% for clock in project.clocks.all %}
-                                    <li>
-                                        {% if clock.title %}
-                                            {{ clock.title }}
-                                        {% else %}
-                                            {{ project.name }}
-                                        {% endif %}
-                                        : {{ clock.calculate_progress }}/{{ clock.length }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                            <p><strong>{{ project }}</strong></p>
                         {% empty %}
                             <p>No active projects.</p>
                         {% endfor %}

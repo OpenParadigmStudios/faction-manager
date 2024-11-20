@@ -1,8 +1,8 @@
-<!-- templates/timeline/timeline_form.html -->
+<!-- templates/game/game_form.html -->
 
 {% extends "base.html" %}
 {% block content %}
-  <h1>{% if form.instance.pk %}Edit Timeline{% else %}Create Timeline{% endif %}</h1>
+  <h1>{% if form.instance.pk %}Edit Game{% else %}Create Game{% endif %}</h1>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

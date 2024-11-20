@@ -1,17 +1,17 @@
 from django import forms
-from .models import Timeline, Project
+from .models import Game, Project
 
-class TimelineForm(forms.ModelForm):
+class GameForm(forms.ModelForm):
     class Meta:
-        model = Timeline
+        model = Game
         fields = ['name', 'description']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter timeline name'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter timeline description'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter game name'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter game description'}),
         }
 
 class ProjectForm(forms.ModelForm):
-    clock_length = forms.TypedChoiceField(
+    length = forms.TypedChoiceField(
         choices=[(i, str(i)) for i in [2, 4, 6, 8, 10, 12, 16, 20]],
         coerce=int,
         initial=4,
@@ -20,13 +20,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['name', 'description', 'factions']
+        fields = ['name', 'description', 'factions', 'length']
         widgets = {
             'factions': forms.CheckboxSelectMultiple(),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(ProjectForm, self).__init__(*args, **kwargs)
-        if self.instance and self.instance.pk:
-            # Existing instance; remove clock_length field
-            self.fields.pop('clock_length')
