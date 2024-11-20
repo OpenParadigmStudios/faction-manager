@@ -28,5 +28,6 @@ urlpatterns = [
     path('projects/edit/<int:pk>/<int:game_id>/', views.ProjectUpdateView.as_view(), name='project_update'),
     path('projects/delete/<int:pk>/<int:game_id>/', views.ProjectDeleteView.as_view(), name='project_delete'),
 
-    # Removed Clock and ClockChange URLs as Clocks are no longer used
+    # Import Test Data URL
+    path('import-test-data/', views.import_test_data, name='import_test_data'),
 ]

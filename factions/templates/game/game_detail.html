@@ -1,76 +1,106 @@
 <!-- templates/game/game_detail.html -->
 
 {% extends "base.html" %}
-{% block content %}
-  <h1>{{ game.name }}</h1>
-  <p>{{ game.description }}</p>
-  <p><strong>Time Now:</strong> {{ now }}</p>
-  <a href="{% url 'game_edit' game.pk %}" class="btn btn-secondary">Edit Game</a>
 
-  <table class="feed-table">
-    <tr>
-      <td class="feed-cell">
-        <h2>
-          <a href="{% url 'session_list' game.pk %}">Session Feed</a>
-          <a href="{% url 'session_create' game.pk %}" class="icon-link">
-            <i class="fas fa-plus-circle"></i>
-          </a>
-        </h2>
-        <ul>
-          {% for session in latest_sessions %}
-            <li><a href="{% url 'session_detail' session.pk game.pk %}">{{ session.name }} (When: {{ session.when }})</a></li>
-          {% empty %}
-            <li>No recent sessions available.</li>
-          {% endfor %}
-        </ul>
-      </td>
-      <td class="feed-cell">
-        <h2>
-          <a href="{% url 'event_list' game.pk %}">Event Feed</a>
-          <a href="{% url 'event_create' game.pk %}" class="icon-link">
-            <i class="fas fa-plus-circle"></i>
-          </a>
-        </h2>
-        <ul>
-          {% for event in latest_events %}
-            <li><a href="{% url 'event_detail' event.pk game.pk %}">{{ event.name }} (When: {{ event.when }})</a></li>
-          {% empty %}
-            <li>No recent events available.</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td class="feed-cell">
-        <h2>
-          <a href="{% url 'faction_list' game.pk %}">Faction Feed</a>
-          <a href="{% url 'faction_create' game.pk %}" class="icon-link">
-            <i class="fas fa-plus-circle"></i>
-          </a>
-        </h2>
-        <ul>
-          {% for faction in top_factions %}
-            <li><a href="{% url 'faction_detail' faction.pk game.pk %}">{{ faction.name }}</a></li>
-          {% empty %}
-            <li>No factions available.</li>
-          {% endfor %}
-        </ul>
-      </td>
-      <td class="feed-cell">
-        <h2>
-          <a href="{% url 'project_list' game.pk %}">Project Feed</a>
-          <a href="{% url 'project_create' game.pk %}" class="icon-link">
-            <i class="fas fa-plus-circle"></i>
-          </a>
-        </h2>
-        <ul>
-          {% for project in top_projects %}
-            <li><a href="{% url 'project_detail' project.pk game.pk %}">{{ project }}</a></li>
-          {% empty %}
-            <li>No projects available.</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-  </table>
+{% block title %}{{ game.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Game Name and Edit Button -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>{{ game.name }}</h1>
+        <a href="{% url 'game_edit' game.pk %}" class="btn btn-secondary">Edit Game</a>
+    </div>
+    <p class="mt-3">{{ game.description }}</p>
+    <p><strong>Time Now:</strong> {{ now }}</p>
+    <!-- Feeds -->
+    <div class="row mt-4">
+        <!-- Factions Feed -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        Factions
+                        <a href="{% url 'faction_create' game.pk %}" class="btn btn-sm btn-primary float-right">Add Faction</a>
+                    </h2>
+                    <ul class="list-group list-group-flush">
+                        {% for faction in top_factions %}
+                            <li class="list-group-item">
+                                <a href="{% url 'faction_detail' faction.pk game.pk %}">{{ faction }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No factions available.</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'faction_list' game.pk %}" class="btn btn-link mt-2">View All Factions</a>
+                </div>
+            </div>
+        </div>
+        <!-- Projects Feed -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        Projects
+                        <a href="{% url 'project_create' game.pk %}" class="btn btn-sm btn-primary float-right">Add Project</a>
+                    </h2>
+                    <ul class="list-group list-group-flush">
+                        {% for project in top_projects %}
+                            <li class="list-group-item">
+                                <a href="{% url 'project_detail' project.pk game.pk %}">{{ project }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No projects available.</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'project_list' game.pk %}" class="btn btn-link mt-2">View All Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Sessions Feed -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        Sessions
+                        <a href="{% url 'session_create' game.pk %}" class="btn btn-sm btn-primary float-right">Add Session</a>
+                    </h2>
+                    <ul class="list-group list-group-flush">
+                        {% for session in latest_sessions %}
+                            <li class="list-group-item">
+                                <a href="{% url 'session_detail' session.pk game.pk %}">{{ session.name }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No recent sessions available.</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'session_list' game.pk %}" class="btn btn-link mt-2">View All Sessions</a>
+                </div>
+            </div>
+        </div>
+        <!-- Events Feed -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        Events
+                        <a href="{% url 'event_create' game.pk %}" class="btn btn-sm btn-primary float-right">Add Event</a>
+                    </h2>
+                    <ul class="list-group list-group-flush">
+                        {% for event in latest_events %}
+                            <li class="list-group-item">
+                                <a href="{% url 'event_detail' event.pk game.pk %}">{{ event }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No recent events available.</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'event_list' game.pk %}" class="btn btn-link mt-2">View All Events</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

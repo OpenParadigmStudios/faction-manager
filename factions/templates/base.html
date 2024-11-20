@@ -13,14 +13,24 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'game_list' %}">Faction Manager</a>
-        <!-- Other nav items -->
         {% if game %}
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'game_detail' game.id %}">{{ game }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'faction_list' game.id %}">Factions</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'project_list' game.id %}">Projects</a>
                 </li>
-                <!-- Other nav items -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'session_list' game.id %}">Sessions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'event_list' game.id %}">Events</a>
+                </li>
             </ul>
         </div>
         {% endif %}
