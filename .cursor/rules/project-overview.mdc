@@ -1,0 +1,119 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+title: Faction Manager Coding Standards
+description: Guidelines for coding conventions, architecture patterns, and best practices when working with the Faction Manager codebase.
+glob: "**/*.{py,html,css,js}"
+alwaysApply: true
+---
+
+# Faction Manager Coding Standards
+
+## Project Architecture
+
+Faction Manager follows the standard Django Model-View-Template (MVT) architecture:
+
+- **Models**: Defined in `factions/models.py`
+- **Views**: Class-based views in `factions/views.py`
+- **Templates**: Located in `factions/templates/`
+- **URLs**: Defined in `factions/urls.py`
+- **Forms**: Defined in `factions/forms.py`
+- **Static Files**: Located in `factions/static/`
+
+## Key Model Relationships
+
+Understanding the data model relationships is essential for any code changes:
+
+- **Game** is the top-level container for all entities (Factions, Projects, Events, Sessions)
+- **Faction** belongs to a Game and can be associated with multiple Projects
+- **Project** belongs to a Game, can be associated with multiple Factions
+- **Event** belongs to a Game and links to Projects through ProjectChange
+- **Session** belongs to a Game
+- **ProjectChange** links Projects and Events, tracking progress changes
+
+## Coding Patterns
+
+### Class-Based Views
+
+Views use Django's class-based view pattern with consistent methods:
+
+```python
+class EntityListView(ListView):
+    model = Entity
+    template_name = 'entity/entity_list.html'
+    context_object_name = 'entities'
+
+    def get_queryset(self):
+        # Filter by game ID from URL parameters
+        return Entity.objects.filter(game_id=self.kwargs['game_id'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add game object to context
+        context['game'] = Game.objects.get(id=self.kwargs['game_id'])
+        return context
+```
+
+### Model Helper Methods
+
+Models include helper methods for derived calculations:
+
+```python
+def progress_percentage(self):
+    total_length = self.length or 1  # Handle zero values
+    total_progress = self.calculate_progress()
+    return (total_progress / total_length) * 100
+```
+
+### URL Patterns
+
+URL patterns follow a consistent convention using game_id for context:
+
+```python
+path('entities/<int:game_id>', views.EntityListView.as_view(), name='entity_list'),
+path('entities/create/<int:game_id>', views.EntityCreateView.as_view(), name='entity_create'),
+path('entities/<int:pk>/<int:game_id>', views.EntityDetailView.as_view(), name='entity_detail'),
+```
+
+## Common Pitfalls
+
+- **Missing Game Context**: Always pass 'game' to the template context in views
+- **URL Parameters**: Remember to include game_id in URLs and template links
+- **Model Dependencies**: Maintain proper foreign key relationships
+- **Time Tracking**: The "when" field is critical for Events and Sessions
+- **Project Progress**: Progress is calculated from the sum of ProjectChange amounts
+
+## Implementation Guidelines
+
+When adding new features:
+
+1. Define any new models in `factions/models.py`
+2. Create appropriate views (List, Detail, Create, Update, Delete as needed)
+3. Add URL patterns in `factions/urls.py`
+4. Create templates in `factions/templates/`
+5. Update forms in `factions/forms.py` if needed
+6. Run migrations if you've added/changed models:
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+## Template Patterns
+
+Templates use a consistent pattern with base templates:
+
+```html
+{% extends "base.html" %}
+
+{% block title %}Page Title{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Entity Name</h1>
+    <!-- Entity-specific content -->
+</div>
+{% endblock %}
+```

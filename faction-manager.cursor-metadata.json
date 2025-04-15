@@ -1,0 +1,99 @@
+{
+  "projectName": "Faction Manager",
+  "description": "A Django-based web application for managing factions, projects, and events in tabletop role-playing games.",
+  "version": "1.0.0",
+  
+  "overview": {
+    "purpose": "Faction Manager helps game masters track the progress of factions, their projects, and related events in tabletop RPGs.",
+    "dataModel": "The application uses a relational model with Games at the top level, containing Factions, Projects, Events, and Sessions. ProjectChanges track how projects evolve over time.",
+    "architecture": "Standard Django MVT (Model-View-Template) architecture with class-based views."
+  },
+  
+  "keyComponents": {
+    "models": {
+      "Game": "Top-level container for a game world, has many Factions, Sessions, Events and Projects",
+      "Faction": "Represents an in-game faction with tier, goals, leadership, values, and history",
+      "Project": "Represents work undertaken by Factions with a length/progress clock",
+      "Event": "Represents significant occurrences in the game timeline that affect Projects",
+      "Session": "Represents a gameplay session with a timestamp ('when')",
+      "ProjectChange": "Junction model tracking changes to project progress during events"
+    },
+    
+    "views": {
+      "pattern": "Class-based views organized by model type (Game, Faction, etc.)",
+      "commonViews": "Each model typically has List, Detail, Create, Update, and Delete views",
+      "specialViews": "import_test_data for importing YAML data files for testing/demo purposes"
+    },
+    
+    "templates": {
+      "organization": "Templates are organized by model type in subdirectories",
+      "inheritance": "Templates likely use Django template inheritance with a base template"
+    },
+    
+    "dataFlow": {
+      "timeline": "Events and Sessions have a 'when' field for chronological ordering",
+      "projectProgress": "Projects have a length and accumulate progress through ProjectChanges",
+      "gameState": "The current game state is determined by the latest Session's 'when' value"
+    }
+  },
+  
+  "developmentPatterns": {
+    "modelHelpers": "Models include helper methods for common calculations (e.g., progress_percentage)",
+    "viewContextData": "Views extend context data with calculated/related information",
+    "yamlDataImport": "The system supports importing test data from YAML files in the data directory"
+  },
+  
+  "importantFiles": {
+    "models.py": "Defines the data structure and relationships",
+    "views.py": "Contains all view logic including list, detail, create, update, delete views",
+    "urls.py": "Maps URLs to view functions/classes",
+    "forms.py": "Defines forms for data input"
+  },
+  
+  "developmentWorkflow": {
+    "dataCreation": "Games → Factions → Projects → Events → ProjectChanges",
+    "runDevelopmentServer": "python manage.py runserver",
+    "importTestData": "Use the /import-test-data/ endpoint to load sample data"
+  },
+  
+  "keyRelationships": [
+    {"from": "Game", "to": "Faction", "type": "one-to-many", "field": "game"},
+    {"from": "Game", "to": "Project", "type": "one-to-many", "field": "game"},
+    {"from": "Game", "to": "Event", "type": "one-to-many", "field": "game"},
+    {"from": "Game", "to": "Session", "type": "one-to-many", "field": "game"},
+    {"from": "Faction", "to": "Project", "type": "many-to-many", "field": "factions"},
+    {"from": "Project", "to": "ProjectChange", "type": "one-to-many", "field": "project"},
+    {"from": "Event", "to": "ProjectChange", "type": "one-to-many", "field": "event"}
+  ],
+  
+  "codeNavigation": {
+    "modelDefinitions": "factions/models.py",
+    "urlRoutes": "factions/urls.py",
+    "viewLogic": "factions/views.py",
+    "formDefinitions": "factions/forms.py",
+    "templateDirectory": "factions/templates/",
+    "staticAssets": "factions/static/"
+  },
+  
+  "dataFlow": {
+    "projectTrackingFlow": "Projects have a length and track progress through connected ProjectChange records. When progress reaches length, the project is marked as finished.",
+    "timeTrackingFlow": "Events and Sessions have a 'when' attribute representing game time. The current game time is determined by the max 'when' value across sessions.",
+    "factionProgressTracking": "Faction progress is measured by their projects' completion and total project length."
+  },
+  
+  "commonPatterns": {
+    "contextExtension": "Views typically override get_context_data to add additional context data",
+    "modelCalculations": "Models include methods to calculate derived data (e.g., progress_percentage, top_factions)",
+    "urlPatterns": "URLs follow a consistent pattern with model name and primary key/game_id parameters",
+    "filteringQuerysets": "get_queryset is overridden to filter by relevant game_id parameter from URL"
+  },
+  
+  "yamlDataFormat": {
+    "game": {"name": "string", "description": "string"},
+    "faction": {"name": "string", "game": "string", "description": "string", "tier": "int", "goals": "string", "leadership": "string", "values": "string", "history": "string"},
+    "project": {"name": "string", "game": "string", "description": "string", "length": "int", "factions": ["string"], "finished": "int or null"},
+    "event": {"name": "string", "game": "string", "description": "string", "when": "int"},
+    "session": {"name": "string", "game": "string", "description": "string", "when": "int"},
+    "projectchange": {"project": "string", "event": "string", "game": "string", "amount": "int"}
+  }
+} 
